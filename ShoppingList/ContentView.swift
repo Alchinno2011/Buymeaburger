@@ -6,7 +6,15 @@ import UIKit
 class HapticManager {
     static let shared = HapticManager()
 
-    private init() {}
+    private let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
+    private let notificationGenerator = UINotificationFeedbackGenerator()
+    private let selectionGenerator = UISelectionFeedbackGenerator()
+
+    private init() {
+        impactGenerator.prepare()
+        notificationGenerator.prepare()
+        selectionGenerator.prepare()
+    }
 
     func impact(style: UIImpactFeedbackGenerator.FeedbackStyle) {
         let generator = UIImpactFeedbackGenerator(style: style)
@@ -15,17 +23,16 @@ class HapticManager {
     }
 
     func notification(type: UINotificationFeedbackGenerator.FeedbackType) {
-        let generator = UINotificationFeedbackGenerator()
-        generator.prepare()
-        generator.notificationOccurred(type)
+        notificationGenerator.notificationOccurred(type)
+        notificationGenerator.prepare()
     }
 
     func selection() {
-        let generator = UISelectionFeedbackGenerator()
-        generator.prepare()
-        generator.selectionChanged()
+        selectionGenerator.selectionChanged()
+        selectionGenerator.prepare()
     }
 }
+
 
 
 
@@ -98,7 +105,7 @@ struct ShoppingItem: Identifiable, Codable {
 
 
 struct Recommendation: Identifiable, Codable {
-    let id = UUID()
+    var id: String { name }
     let name: String
     let colorHex: String
 
@@ -212,7 +219,7 @@ struct ContentView: View {
                                     HapticManager.shared.notification(type: .success)
                                     newItem(newItemName, selectedColor)
                                 }
-                                .onChange(of: newItemName) {
+                                .onChange(of: newItemName) { _ in
                                     HapticManager.shared.impact(style: .light)
                                 }
 
@@ -242,17 +249,19 @@ struct ContentView: View {
                                     .onTapGesture {
                                         selectedColor = color
                                     }
-                                
-                                    .onChange(of: selectedColor) {
-                                        HapticManager.shared.selectionChanged()
-                                    }
+
                             }
+                            .onChange(of: selectedColor) { _ in
+                                HapticManager.shared.selection()
+                            }
+
+
                         }
                         .padding(.horizontal)
 
                         VStack {
                             List {
-                                ForEach(recommendations) { recommendation in
+                                ForEach(sortRecommendations(newItemName: newItemName)) { recommendation in
                                     HStack {
                                         VStack(alignment: .leading) {
                                             Text(recommendation.name) // fixed typo here
@@ -288,7 +297,6 @@ struct ContentView: View {
             }
         }
     }
-
         
         private func GetRecomendations() {
             guard let url = URL(string: "https://simplysite.dk:7001/api/GetRecomendations") else { return }
@@ -315,6 +323,10 @@ struct ContentView: View {
                         let decodedItems = try JSONDecoder().decode([Recommendation].self, from: data)
                         DispatchQueue.main.async {
                             self.recommendations = decodedItems
+                            if let encoded = try? JSONEncoder().encode(decodedItems) {
+                                UserDefaults.standard.set(encoded, forKey: "itemRecommendations")
+                            }
+
                         }
                     } catch {
                         print("JSON decode error:", error)
@@ -324,7 +336,34 @@ struct ContentView: View {
 
             task.resume()
         }
+    
+    
+    func sortRecommendations(newItemName: String) -> [Recommendation] {
+        // Retrieve Data from UserDefaults
+        guard let data = UserDefaults.standard.data(forKey: "itemRecommendations"),
+              let items = try? JSONDecoder().decode([Recommendation].self, from: data) else {
+            return []
+        }
 
+        
+        // Decode JSON data into [Item]
+        let decoder = JSONDecoder()
+        guard let items = try? decoder.decode([Recommendation].self, from: data) else {
+            return []
+        }
+        
+        // If newItemName is empty, return all
+        if newItemName.isEmpty {
+            return items
+        }
+        
+        // Filter by Name containing newItemName (case insensitive)
+        let filtered = items.filter {
+            $0.name.lowercased().contains(newItemName.lowercased())
+        }
+        
+        return filtered
+    }
     
     private func DeleteItem(for item: ShoppingItem) {
         print("Delete Item!!! ", item.id)
