@@ -212,6 +212,10 @@ struct ContentView: View {
                                 .padding(8)
                                 .background(Color(.systemBackground))
                                 .cornerRadius(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                                )
                                 .focused($isTextFieldFocused)
                                 .onSubmit {
                                     showTextField = false
@@ -289,6 +293,7 @@ struct ContentView: View {
                     }
                     Spacer()
                 }
+                .padding(.bottom, 80)
             }
             .navigationTitle("Shopping List")
             .onAppear(perform: fetchDataFromAPI)
