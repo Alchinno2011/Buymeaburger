@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B583BB462E1D4B76009286E1 /* LunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B583BB452E1D4B76009286E1 /* LunchScreen.storyboard */; };
 		B5AB64192E101D2F00976580 /* ShoppingListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB64182E101D2F00976580 /* ShoppingListApp.swift */; };
 		B5AB641B2E101D2F00976580 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB641A2E101D2F00976580 /* ContentView.swift */; };
 		B5AB641D2E101D3100976580 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5AB641C2E101D3100976580 /* Assets.xcassets */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B583BB442E1D49FA009286E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B583BB452E1D4B76009286E1 /* LunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LunchScreen.storyboard; sourceTree = "<group>"; };
 		B5AB64152E101D2F00976580 /* ShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AB64182E101D2F00976580 /* ShoppingListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListApp.swift; sourceTree = "<group>"; };
 		B5AB641A2E101D2F00976580 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,6 +77,7 @@
 		B5AB640C2E101D2F00976580 = {
 			isa = PBXGroup;
 			children = (
+				B583BB452E1D4B76009286E1 /* LunchScreen.storyboard */,
 				B5AB64172E101D2F00976580 /* ShoppingList */,
 				B5AB64282E101D3200976580 /* ShoppingListTests */,
 				B5AB64322E101D3200976580 /* ShoppingListUITests */,
@@ -94,6 +98,7 @@
 		B5AB64172E101D2F00976580 /* ShoppingList */ = {
 			isa = PBXGroup;
 			children = (
+				B583BB442E1D49FA009286E1 /* Info.plist */,
 				B5AB64182E101D2F00976580 /* ShoppingListApp.swift */,
 				B5AB641A2E101D2F00976580 /* ContentView.swift */,
 				B5AB641C2E101D3100976580 /* Assets.xcassets */,
@@ -233,6 +238,7 @@
 			files = (
 				B5AB64202E101D3100976580 /* Preview Assets.xcassets in Resources */,
 				B5AB641D2E101D3100976580 /* Assets.xcassets in Resources */,
+				B583BB462E1D4B76009286E1 /* LunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,13 +423,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingList/Preview Content\"";
-				DEVELOPMENT_TEAM = X53862Z9Y2;
+				DEVELOPMENT_TEAM = 37DM954WD4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShoppingList/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LunchScreen.storyboar;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -432,11 +439,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = simplysite.ShoppingList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.simplysite.familyshoppinglist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -448,13 +458,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ShoppingList/Preview Content\"";
-				DEVELOPMENT_TEAM = X53862Z9Y2;
+				DEVELOPMENT_TEAM = 37DM954WD4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShoppingList/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LunchScreen.storyboar;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -463,11 +474,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = simplysite.ShoppingList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.simplysite.familyshoppinglist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
