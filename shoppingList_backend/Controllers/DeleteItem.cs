@@ -3,7 +3,7 @@ using shoppingList_backend.Database;
 
 namespace shoppingList_backend.Controllers
 {
-    [Route("api/Delete Item")]
+    [Route("api/DeleteItem")]
     [ApiController]
     public class DeleteItem : Controller
     {

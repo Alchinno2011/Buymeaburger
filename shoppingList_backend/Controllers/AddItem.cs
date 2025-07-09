@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Cors;
 using shoppingList_backend.Database;
 using shoppingList_backend.Database.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
+using shoppingList_backend.Database.DTOs;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace shoppingList_backend.Controllers
@@ -39,8 +41,39 @@ namespace shoppingList_backend.Controllers
                 CreateOrder(data);
             }
 
+            AddToItems(data.Name, data.color);
+
             return Ok();
+
         }
+
+    private void AddToItems(string name, string color)
+    {
+        using DBContext context = new DBContext();
+
+        if (!context.Items.Any(g => g.Name == name))
+        {
+            Console.WriteLine(!context.Items.Any(g => g.Name == name));
+
+            Items newItem = new Items()
+            {
+                Name = name,
+                color = color
+            };
+
+            context.Items.Add(newItem);
+            context.SaveChanges();
+        }
+        else
+        {
+            var existingItem = context.Items.FirstOrDefault(g => g.Name == name);
+            if (existingItem != null)
+            {
+                existingItem.color = color;
+                context.SaveChanges();
+            }
+        }
+    }
 
 
 
@@ -55,7 +88,8 @@ namespace shoppingList_backend.Controllers
                 Name = data.Name,
                 Quantity = data.Quantity,
                 IsBought = data.IsBought,
-                CreatedAt = data.CreatedAt
+                CreatedAt = data.CreatedAt,
+                color = data.color
             };
 
             context.GroceryList.Add(newGrocery);
@@ -72,6 +106,8 @@ namespace shoppingList_backend.Controllers
             public string Quantity { get; set; }
             public bool IsBought { get; set; }
             public DateTime CreatedAt { get; set; }
+
+            public string color { get; set; }
         }
     }
 

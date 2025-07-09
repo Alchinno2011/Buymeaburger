@@ -14,5 +14,7 @@
         public bool IsBought { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public string color { get; set; }
     }
 }

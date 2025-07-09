@@ -27,10 +27,11 @@ namespace shoppingList_backend.Controllers
                     Name = Grocery.Name,
                     Quantity = Grocery.Quantity,
                     IsBought = Grocery.IsBought,
-                    CreatedAt = Grocery.CreatedAt
+                    CreatedAt = Grocery.CreatedAt,
+                    color = Grocery.color
 
                 })
-                .OrderByDescending(o => o.CreatedAt);
+                .OrderByDescending(o => o.color);
 
             Console.WriteLine(JsonConvert.SerializeObject(GroceryList.ToArray()));
 

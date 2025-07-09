@@ -8,20 +8,28 @@ namespace shoppingList_backend
     {
         public static void ApplyMigrations()
         {
-            using DBContext context = new DBContext();
-
-            var pendingMigrations = context.Database.GetPendingMigrations();
-
-            if (pendingMigrations.Any())
+            try
             {
-                Console.WriteLine("Applying pending migrations...");
-                context.Database.Migrate();
-                Console.WriteLine("Migrations applied successfully.");
+                using DBContext context = new DBContext();
+
+                var pendingMigrations = context.Database.GetPendingMigrations();
+
+                if (pendingMigrations.Any())
+                {
+                    Console.WriteLine("Applying pending migrations...");
+                    context.Database.Migrate();
+                    Console.WriteLine("Migrations applied successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("No pending migrations to apply.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("No pending migrations to apply.");
+                Console.WriteLine("Migration failed: " + ex.Message);
             }
+
         }
     }
 }

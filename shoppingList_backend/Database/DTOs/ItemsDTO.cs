@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public int FrequencyUsed { get; set; }
+        public string color { get; set; }
     }
 }

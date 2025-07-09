@@ -41,11 +41,14 @@ namespace shoppingList_backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Quantity")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("color")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -60,10 +63,11 @@ namespace shoppingList_backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FrequencyUsed")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("color")
                         .IsRequired()
                         .HasColumnType("text");
 

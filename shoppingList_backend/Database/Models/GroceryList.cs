@@ -9,19 +9,21 @@ namespace shoppingList_backend.Database.Models
 
         [Required] public int UserId { get; set; }
 
-        [Key] public int Id { get; set; }
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
 
         [Required] public string Name { get; set; }
 
-        [Required] public string Quantity { get; set; }
+        public string? Quantity { get; set; }
 
         [Required] public bool IsBought { get; set; }
 
         [Required] public DateTime CreatedAt { get; set; }
+        
+        public string color { get; set; }
 
 
 
-        [ForeignKey("UserId")]
-        public virtual Users Users { get; set; }
+        //[ForeignKey("UserId")]
+        //public virtual Users Users { get; set; }
     }
 }

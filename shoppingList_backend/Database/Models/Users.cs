@@ -7,7 +7,7 @@ namespace shoppingList_backend.Database.Models
     [Table("Users", Schema = "work")]
     public class Users
     {
-        [Key] public int Id { get; set; }
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
 
         [Required] public string Name { get; set; }
 

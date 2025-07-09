@@ -9,6 +9,11 @@ services:
     env_file:
        - ./.env
 
+    environment:
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=${HTTPS_CERT_PATH}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${HTTPS_CERT_PASS}
+      - ASPNETCORE_ENVIRONMENT=Development
+
     ports:
         - ${API_OUT_HTTPS}:${API_IN_HTTPS}
         - ${API_OUT_HTTP}:${API_IN_HTTP}
@@ -17,6 +22,8 @@ services:
     depends_on:
       GroceryListDB:
         condition: service_healthy
+    volumes:
+      - ./https:/https
 
   GroceryListDB:
     image: postgres:14-alpine
