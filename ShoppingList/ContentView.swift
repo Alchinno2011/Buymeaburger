@@ -130,6 +130,8 @@ struct ContentView: View {
         .blue, .purple, .pink, .gray
     ]
 
+
+
     
     
     @State private var items: [ShoppingItem] = []
@@ -141,6 +143,8 @@ struct ContentView: View {
     @State private var itemToDelete: ShoppingItem? = nil
     @FocusState private var isTextFieldFocused: Bool
     @State private var recommendations: [Recommendation] = []
+    
+    @Environment(\.colorScheme) var colorScheme
 
 
     var body: some View {
@@ -157,7 +161,9 @@ struct ContentView: View {
                                 Spacer()
                             }
                             .padding()
-                            .background(item.isBought ? Color.black.opacity(0.2) : Color.white)
+                            
+                            
+                            .background(backgroundColor(isBought: item.isBought))
                             .cornerRadius(8)
                             .overlay(RoundedRectangle(cornerRadius: 8).stroke(item.color, lineWidth: 2))
                             .contentShape(Rectangle())
@@ -248,7 +254,13 @@ struct ContentView: View {
                                     .frame(width: 30, height: 30)
                                     .overlay(
                                         Circle()
-                                            .stroke(selectedColor == color ? Color.black : Color.clear, lineWidth: 2)
+                                            .stroke(
+                                                selectedColor == color
+                                                    ? (colorScheme == .dark ? Color.white : Color.black)
+                                                    : Color.clear,
+                                                lineWidth: 2
+                                            )
+
                                     )
                                     .onTapGesture {
                                         selectedColor = color
@@ -274,7 +286,8 @@ struct ContentView: View {
                                         Spacer()
                                     }
                                     .padding()
-                                    .background(Color.white)
+                                    .background(colorScheme == .dark ? Color.black : Color.white)
+
                                     .cornerRadius(8)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 8)
@@ -302,6 +315,15 @@ struct ContentView: View {
             }
         }
     }
+    
+    private func backgroundColor(isBought: Bool) -> Color {
+        if isBought {
+            return Color.gray.opacity(0.3)
+        } else {
+            return colorScheme == .dark ? Color.black : Color.white
+        }
+    }
+
         
         private func GetRecomendations() {
             guard let url = URL(string: "https://simplysite.dk:7001/api/GetRecomendations") else { return }
