@@ -427,6 +427,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Buy Me a Burger";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -462,6 +463,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Buy Me a Burger";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
