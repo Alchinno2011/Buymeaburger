@@ -190,23 +190,24 @@ struct ContentView: View {
                     .blur(radius: showTextField ? 5 : 0)
                     .allowsHitTesting(!showTextField)
                     
-                    
-                    Button(action: {
-                        showTextField = true
-                        isTextFieldFocused = true
-                        newItemName = ""
-                        HapticManager.shared.impact(style: .medium)
-                        GetRecomendations()
-                    }) {
-                        Text("+")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-                            .frame(width: 60, height: 60)
-                            .background(Color.green)
-                            .clipShape(Circle())
-                            .shadow(radius: 4)
+                    if !showTextField {
+                        Button(action: {
+                            showTextField = true
+                            isTextFieldFocused = true
+                            newItemName = ""
+                            HapticManager.shared.impact(style: .medium)
+                            GetRecomendations()
+                        }) {
+                            Text("+")
+                                .font(.largeTitle)
+                                .foregroundColor(.white)
+                                .frame(width: 60, height: 60)
+                                .background(Color.green)
+                                .clipShape(Circle())
+                                .shadow(radius: 4)
+                        }
+                        .padding()
                     }
-                    .padding()
                 }
                 
 
@@ -302,7 +303,9 @@ struct ContentView: View {
                                     }
                                 }
                             }
+                            .background(Color.clear)
                         }
+                        .background(Color.clear)
                     }
                     Spacer()
                 }
