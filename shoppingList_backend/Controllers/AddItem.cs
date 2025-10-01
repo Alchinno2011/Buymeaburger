@@ -55,7 +55,7 @@ namespace shoppingList_backend.Controllers
         {
             Console.WriteLine(!context.Items.Any(g => g.Name == name));
 
-            Items newItem = new Items()
+            Recomendation newItem = new Recomendation()
             {
                 Name = name,
                 color = color
@@ -81,10 +81,10 @@ namespace shoppingList_backend.Controllers
         {
             using DBContext context = new DBContext();
 
-            GroceryList newGrocery = new GroceryList()
+            GroceryItem newGrocery = new GroceryItem()
             {
-                UserId = data.UserId,
                 Id = data.Id,
+                ListId = data.ListId,
                 Name = data.Name,
                 Quantity = data.Quantity,
                 IsBought = data.IsBought,
@@ -100,7 +100,7 @@ namespace shoppingList_backend.Controllers
 
         private class NewItemRequestData
         {
-            public int UserId { get; set; }
+            public int ListId { get; set; }
             public int Id { get; set; }
             public string Name { get; set; }
             public string Quantity { get; set; }

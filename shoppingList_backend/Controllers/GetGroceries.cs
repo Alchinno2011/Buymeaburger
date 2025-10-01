@@ -22,7 +22,7 @@ namespace shoppingList_backend.Controllers
             var GroceryList = (from Grocery in context.GroceryList
                 select new GroceryListDTO
                 {
-                    UserId = Grocery.UserId,
+                    //UserId = Grocery.UserId,
                     Id = Grocery.Id,
                     Name = Grocery.Name,
                     Quantity = Grocery.Quantity,

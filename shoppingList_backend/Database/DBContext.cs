@@ -7,11 +7,11 @@ namespace shoppingList_backend.Database
 {
     public class DBContext : DbContext
     {
-        public DbSet<Users> Users { get; set; }
-        public DbSet<GroceryList> GroceryList { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<GroceryItem> GroceryList { get; set; }
 
 
-        public DbSet<Items> Items { get; set; }
+        public DbSet<Recomendation> Items { get; set; }
 
         // Add auto get time when order is placed
 

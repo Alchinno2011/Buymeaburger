@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using shoppingList_backend.Database;
@@ -11,9 +12,11 @@ using shoppingList_backend.Database;
 namespace shoppingList_backend.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20251001160237_rewrited_db")]
+    partial class rewrited_db
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace shoppingList_backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("GroceryListUser", b =>
-                {
-                    b.Property<int>("SharedGroceryListsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SharedUsersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("SharedGroceryListsId", "SharedUsersId");
-
-                    b.HasIndex("SharedUsersId");
-
-                    b.ToTable("GroceryListUser", "work");
-                });
 
             modelBuilder.Entity("shoppingList_backend.Database.Models.GroceryItem", b =>
                 {
@@ -77,8 +65,6 @@ namespace shoppingList_backend.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -140,21 +126,6 @@ namespace shoppingList_backend.Migrations
                     b.ToTable("Users", "work");
                 });
 
-            modelBuilder.Entity("GroceryListUser", b =>
-                {
-                    b.HasOne("shoppingList_backend.Database.Models.GroceryList", null)
-                        .WithMany()
-                        .HasForeignKey("SharedGroceryListsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("shoppingList_backend.Database.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("SharedUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("shoppingList_backend.Database.Models.GroceryItem", b =>
                 {
                     b.HasOne("shoppingList_backend.Database.Models.GroceryList", "GroceryList")
@@ -168,8 +139,14 @@ namespace shoppingList_backend.Migrations
 
             modelBuilder.Entity("shoppingList_backend.Database.Models.GroceryList", b =>
                 {
-                    b.HasOne("shoppingList_backend.Database.Models.User", "Owner")
+                    b.HasOne("shoppingList_backend.Database.Models.User", null)
                         .WithMany("OwnedGroceryLists")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("shoppingList_backend.Database.Models.User", "Owner")
+                        .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

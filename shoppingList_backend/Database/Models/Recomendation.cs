@@ -4,8 +4,8 @@ using System.Drawing;
 
 namespace shoppingList_backend.Database.Models
 {
-    [Table("Items", Schema = "work")]
-    public class Items
+    [Table("Recomendation", Schema = "work")]
+    public class Recomendation
     {
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
 

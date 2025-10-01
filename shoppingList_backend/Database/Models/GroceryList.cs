@@ -6,24 +6,22 @@ namespace shoppingList_backend.Database.Models
     [Table("GroceryList", Schema = "work")]
     public class GroceryList
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        [Required] public int UserId { get; set; }
+        [Required]
+        public required string Name { get; set; }
 
-        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required]
+        public int OwnerId { get; set; }
 
-        [Required] public string Name { get; set; }
+        [ForeignKey(nameof(OwnerId))]
+        public virtual User Owner { get; set; }
 
-        public string? Quantity { get; set; }
+        [InverseProperty(nameof(User.SharedGroceryLists))]
+        public required List<User> SharedUsers { get; set; }
 
-        [Required] public bool IsBought { get; set; }
-
-        [Required] public DateTime CreatedAt { get; set; }
-        
-        public string color { get; set; }
-
-
-
-        //[ForeignKey("UserId")]
-        //public virtual Users Users { get; set; }
+        public virtual List<GroceryItem> Items { get; set; }
     }
 }
