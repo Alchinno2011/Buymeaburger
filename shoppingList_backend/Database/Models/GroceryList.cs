@@ -17,11 +17,12 @@ namespace shoppingList_backend.Database.Models
         public int OwnerId { get; set; }
 
         [ForeignKey(nameof(OwnerId))]
-        public virtual User Owner { get; set; }
+        public required virtual User Owner { get; set; }
 
         [InverseProperty(nameof(User.SharedGroceryLists))]
+
         public required List<User> SharedUsers { get; set; }
 
-        public virtual List<GroceryItem> Items { get; set; }
+        public required virtual List<GroceryItem> Items { get; set; }
     }
 }

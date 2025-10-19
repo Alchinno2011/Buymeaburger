@@ -13,13 +13,13 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace shoppingList_backend.Controllers
 {
-    [Route("api/newitem")]
+    [Route("newitem")]
     [ApiController]
     public class NewOrderController : ControllerBase
     {
 
-        [HttpPost]
-        public async Task<IActionResult> Login()
+        [HttpPost("GroceryListId")]
+        public async Task<IActionResult> AddItem(int GroceryListId)
         {
 
             Console.WriteLine("POST");
@@ -38,35 +38,36 @@ namespace shoppingList_backend.Controllers
 
             else
             {
-                CreateOrder(data);
+                CreateItem(data, GroceryListId);
             }
 
-            AddToItems(data.Name, data.color);
+            AddToRecomendations(data.Name, data.color);
 
             return Ok();
 
         }
 
-    private void AddToItems(string name, string color)
+    private void AddToRecomendations(string name, string color)
     {
         using DBContext context = new DBContext();
 
-        if (!context.Items.Any(g => g.Name == name))
+        if (!context.Recomendations.Any(g => g.Name == name))
         {
-            Console.WriteLine(!context.Items.Any(g => g.Name == name));
+            Console.WriteLine(!context.Recomendations.Any(g => g.Name == name));
 
-            Recomendation newItem = new Recomendation()
+            var newItem = new Recomendation
             {
                 Name = name,
                 color = color
             };
 
-            context.Items.Add(newItem);
+            context.Recomendations.Add(newItem);
             context.SaveChanges();
-        }
-        else
+
+            }
+            else
         {
-            var existingItem = context.Items.FirstOrDefault(g => g.Name == name);
+            var existingItem = context.Recomendations.FirstOrDefault(g => g.Name == name);
             if (existingItem != null)
             {
                 existingItem.color = color;
@@ -77,14 +78,13 @@ namespace shoppingList_backend.Controllers
 
 
 
-        private void CreateOrder(NewItemRequestData data)
+        private void CreateItem(NewItemRequestData data, int GroceryListId)
         {
             using DBContext context = new DBContext();
 
-            GroceryItem newGrocery = new GroceryItem()
+            var newGrocery = new GroceryItem()
             {
-                Id = data.Id,
-                ListId = data.ListId,
+                ListId = GroceryListId,
                 Name = data.Name,
                 Quantity = data.Quantity,
                 IsBought = data.IsBought,
@@ -92,22 +92,18 @@ namespace shoppingList_backend.Controllers
                 color = data.color
             };
 
-            context.GroceryList.Add(newGrocery);
+            context.GroceryItem.Add(newGrocery);
 
             context.SaveChanges();
         }
 
 
-        private class NewItemRequestData
-        {
-            public int ListId { get; set; }
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Quantity { get; set; }
+        private class NewItemRequestData {
+            public required string Name { get; set; }
+            public string? Quantity { get; set; }
             public bool IsBought { get; set; }
             public DateTime CreatedAt { get; set; }
-
-            public string color { get; set; }
+            public required string color { get; set; }
         }
     }
 

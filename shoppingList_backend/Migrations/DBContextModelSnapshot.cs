@@ -102,6 +102,9 @@ namespace shoppingList_backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ListId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -111,6 +114,8 @@ namespace shoppingList_backend.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ListId");
 
                     b.ToTable("Recomendation", "work");
                 });
@@ -175,6 +180,17 @@ namespace shoppingList_backend.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("shoppingList_backend.Database.Models.Recomendation", b =>
+                {
+                    b.HasOne("shoppingList_backend.Database.Models.GroceryList", "GroceryList")
+                        .WithMany()
+                        .HasForeignKey("ListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GroceryList");
                 });
 
             modelBuilder.Entity("shoppingList_backend.Database.Models.GroceryList", b =>

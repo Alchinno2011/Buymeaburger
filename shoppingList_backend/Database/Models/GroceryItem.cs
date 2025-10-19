@@ -10,11 +10,11 @@ namespace shoppingList_backend.Database.Models
         [Required] public int ListId { get; set; }
 
         [ForeignKey("ListId")]
-        public virtual GroceryList GroceryList { get; set; }
+        public virtual GroceryList? GroceryList { get; set; }
 
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
 
-        [Required] public string Name { get; set; }
+        [Required] public required string Name { get; set; }
 
         public string? Quantity { get; set; }
 
@@ -22,7 +22,7 @@ namespace shoppingList_backend.Database.Models
 
         [Required] public DateTime CreatedAt { get; set; }
         
-        public string color { get; set; }
+        public required string color { get; set; }
 
 
 

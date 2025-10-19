@@ -2,19 +2,16 @@
 {
     public class GroceryListDTO
     {
-
-        public int UserId { get; set; }
-
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
-        public string Quantity { get; set; }
+        public int OwnerId { get; set; }
 
-        public bool IsBought { get; set; }
+        public required virtual UserDTO Owner { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public required List<UserDTO> SharedUsers { get; set; }
 
-        public string color { get; set; }
+        public required virtual List<GroceryItemDTO> Items { get; set; }
     }
 }

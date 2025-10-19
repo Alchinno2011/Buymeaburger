@@ -10,15 +10,15 @@ namespace shoppingList_backend.Database.Models
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
 
         [InverseProperty("Owner")]
-        public virtual List<GroceryList> OwnedGroceryLists { get; set; }
+        public virtual List<GroceryList>? OwnedGroceryLists { get; set; }
 
         [InverseProperty("SharedUsers")]
-        public virtual List<GroceryList> SharedGroceryLists { get; set; }
+        public virtual List<GroceryList>? SharedGroceryLists { get; set; }
 
-        [Required] public string Name { get; set; }
+        [Required] public required string Name { get; set; }
 
-        [Required] public string Email { get; set; }
+        [Required] public required string Email { get; set; }
 
-        [Required] public string Password { get; set; }
+        [Required] public required string Password { get; set; }
     }
 }
