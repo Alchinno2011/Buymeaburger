@@ -1,40 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Azure.Core;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Authorization;
 using shoppingList_backend.Database;
 using shoppingList_backend.Database.DTOs;
+using shoppingList_backend.Database.Models;
+using System.Drawing;
 
 namespace shoppingList_backend.Controllers
 {
 
-    [Route("api/GetRecomendations")]
+    [Route("GetRecomendations")]
     [ApiController]
     public class GetRecomendations : Controller
     {
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("{GroceryListId}")]
+        public IActionResult getRecomendations(int GroceryListId)
         {
             using DBContext context = new DBContext();
 
-            var Items = (from Item in context.Items
-                         select new ItemsDTO
-                               {
-                                   Id = Item.Id,
-                                   Name = Item.Name,
-                                   color = Item.color
+            var GroceryItems = context.Recomendations
+                .Where(g => g.ListId == GroceryListId)
 
-                               })
-                .OrderByDescending(o => o.Name);
+                .OrderByDescending(o => o.Name)
+                .Select(g => new RecomendationDTO
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                    color = g.color
 
-            Console.WriteLine(JsonConvert.SerializeObject(Items.ToArray()));
+                })
+
+                .ToList();
+
+            Console.WriteLine(JsonConvert.SerializeObject(GroceryItems.ToArray()));
 
             var jsonSettings = new JsonSerializerSettings();
 
 
-            return Content(JsonConvert.SerializeObject(Items.ToArray(), jsonSettings), "application/json");
+            return Content(JsonConvert.SerializeObject(GroceryItems.ToArray(), jsonSettings), "application/json");
         }
     }
 }

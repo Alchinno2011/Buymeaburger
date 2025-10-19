@@ -3,12 +3,12 @@ using shoppingList_backend.Database;
 
 namespace shoppingList_backend.Controllers
 {
-    [Route("api/DeleteItem")]
+    [Route("DeleteItem")]
     [ApiController]
     public class DeleteItem : Controller
     {
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> DeleteOrder(int Id)
+        [HttpDelete("{GroceryListId}/{Id}")]
+        public async Task<IActionResult> DeleteOrder(int Id, int GroceryListId)
         {
 
 
@@ -16,10 +16,10 @@ namespace shoppingList_backend.Controllers
 
             using (var context = new DBContext())
             {
-                var item = context.GroceryList.FirstOrDefault(o => o.Id == Id);
+                var item = context.GroceryItem.FirstOrDefault(o => o.Id == Id && o.ListId == GroceryListId);
                 if (item != null)
                 {
-                    context.GroceryList.Remove(item);
+                    context.GroceryItem.Remove(item);
                     await context.SaveChangesAsync();
                 }
             }

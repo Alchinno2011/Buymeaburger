@@ -5,6 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>8d2955bc-3346-460a-8aa8-d36a0372e06c</ProjectGuid>
+	<DockerComposeEnvironmentFiles>$(MSBuildProjectDirectory)\.env</DockerComposeEnvironmentFiles>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
@@ -12,5 +13,6 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+	<None Include=".env" />
   </ItemGroup>
 </Project>

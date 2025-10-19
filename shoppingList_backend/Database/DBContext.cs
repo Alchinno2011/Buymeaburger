@@ -1,17 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DotNetEnv;
-using System.Collections.Generic;
+﻿using DotNetEnv;
+using Microsoft.EntityFrameworkCore;
 using shoppingList_backend.Database.Models;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace shoppingList_backend.Database
 {
     public class DBContext : DbContext
     {
-        public DbSet<Users> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<GroceryItem> GroceryItem { get; set; }
         public DbSet<GroceryList> GroceryList { get; set; }
+        public DbSet<Recomendation> Recomendations { get; set; }
 
-
-        public DbSet<Items> Items { get; set; }
 
         // Add auto get time when order is placed
 
@@ -26,7 +27,17 @@ namespace shoppingList_backend.Database
         {
             try
             {
-                DotNetEnv.Env.Load("../.env");
+                if (File.Exists("/src/.env"))
+                    DotNetEnv.Env.Load("/src/.env");
+                else if (File.Exists("../.env"))
+                    DotNetEnv.Env.Load("../.env");
+
+
+                foreach (DictionaryEntry env in Environment.GetEnvironmentVariables())
+                {
+                    Console.WriteLine($"{env.Key}={env.Value}");
+                }
+
                 Console.WriteLine("Environment variables loaded successfully.");
             }
             catch (Exception ex)

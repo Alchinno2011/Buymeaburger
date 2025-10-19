@@ -1,7 +1,6 @@
 services:
   shoppinglist_backend:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=7000
       - ASPNETCORE_HTTPS_PORTS=7001
     ports:

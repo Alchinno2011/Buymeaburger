@@ -1,45 +1,50 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Azure.Core;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Authorization;
 using shoppingList_backend.Database;
 using shoppingList_backend.Database.DTOs;
+using shoppingList_backend.Database.Models;
 
 namespace shoppingList_backend.Controllers
 {
 
-    [Route("api/getGroceries")]
+    [Route("getGroceries")]
     [ApiController]
     public class GetGroceries : Controller
     {
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("{userId}/{GroceryListId}")]
+        public IActionResult getGroceries(int GroceryListId, int userId)
         {
             using DBContext context = new DBContext();
 
-            var GroceryList = (from Grocery in context.GroceryList
-                select new GroceryListDTO
+            var GroceryItem = context.GroceryItem
+                .Where(g => g.ListId == GroceryListId)
+
+                //.ToList()
+                .OrderByDescending(o => o.IsBought)
+                .ThenByDescending(o => o.IsBought ? o.CreatedAt.ToString() : o.color)
+                .Select(g => new GroceryItemDTO
                 {
-                    UserId = Grocery.UserId,
-                    Id = Grocery.Id,
-                    Name = Grocery.Name,
-                    Quantity = Grocery.Quantity,
-                    IsBought = Grocery.IsBought,
-                    CreatedAt = Grocery.CreatedAt,
-                    color = Grocery.color
-
+                    Id = g.Id,
+                    Name = g.Name,
+                    Quantity = g.Quantity,
+                    IsBought = g.IsBought,
+                    CreatedAt = g.CreatedAt,
+                    color = g.color
                 })
-                .OrderByDescending(o => o.color);
 
-            Console.WriteLine(JsonConvert.SerializeObject(GroceryList.ToArray()));
+                .ToList();
+
+            Console.WriteLine(JsonConvert.SerializeObject(GroceryItem.ToArray()));
 
             var jsonSettings = new JsonSerializerSettings();
             jsonSettings.DateFormatString = "dd/MM/yyyy hh:mm:ss";
 
 
-            return Content(JsonConvert.SerializeObject(GroceryList.ToArray(), jsonSettings), "application/json");
+            return Content(JsonConvert.SerializeObject(GroceryItem.ToArray(), jsonSettings), "application/json");
         }
     }
 }
