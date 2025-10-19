@@ -26,12 +26,12 @@ services:
         condition: service_healthy
     volumes:
       - ./https:/https
+    restart: unless-stopped
 
 
 
   GroceryListDB:
-    image: postgres:14-alpine
-    platform: linux/amd64
+    image: postgres:14
     container_name: GroceryListDB
     env_file:
         - .env
