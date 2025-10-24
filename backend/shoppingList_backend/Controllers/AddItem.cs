@@ -18,7 +18,7 @@ namespace shoppingList_backend.Controllers
     public class NewOrderController : ControllerBase
     {
 
-        [HttpPost("GroceryListId")]
+        [HttpPost("{GroceryListId}")]
         public async Task<IActionResult> AddItem(int GroceryListId)
         {
 
@@ -39,15 +39,16 @@ namespace shoppingList_backend.Controllers
             else
             {
                 CreateItem(data, GroceryListId);
+                AddToRecomendations(data.Name, data.color, GroceryListId);
             }
 
-            AddToRecomendations(data.Name, data.color);
+
 
             return Ok();
 
         }
 
-    private void AddToRecomendations(string name, string color)
+    private void AddToRecomendations(string name, string color, int GroceryListId)
     {
         using DBContext context = new DBContext();
 
@@ -58,7 +59,8 @@ namespace shoppingList_backend.Controllers
             var newItem = new Recomendation
             {
                 Name = name,
-                color = color
+                color = color,
+                ListId = GroceryListId
             };
 
             context.Recomendations.Add(newItem);
