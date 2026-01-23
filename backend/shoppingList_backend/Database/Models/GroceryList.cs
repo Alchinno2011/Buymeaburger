@@ -21,7 +21,7 @@ namespace shoppingList_backend.Database.Models
 
         [InverseProperty(nameof(User.SharedGroceryLists))]
 
-        public List<User>? SharedUsers { get; set; }
+        public List<User>? SharedUsers { get; set; } = new List<User>();
 
         public virtual List<GroceryItem>? Items { get; set; }
     }
