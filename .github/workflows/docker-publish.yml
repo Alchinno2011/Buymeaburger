@@ -1,0 +1,39 @@
+name: Backend Tests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-tests.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-tests.yml'
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore shoppingList_backend.sln
+
+      - name: Build solution
+        run: dotnet build shoppingList_backend.sln --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test shoppingList_backend.sln --configuration Release --no-build --verbosity normal
