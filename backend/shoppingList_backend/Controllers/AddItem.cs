@@ -13,6 +13,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace shoppingList_backend.Controllers
 {
+    //adds a new item to the grocery list and adds it to the recomendations if it is not already there
+
+
     [Route("newitem")]
     [ApiController]
     public class NewOrderController : ControllerBase
