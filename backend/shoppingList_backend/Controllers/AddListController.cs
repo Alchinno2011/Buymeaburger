@@ -15,7 +15,7 @@ namespace shoppingList_backend.Controllers
 {
     [Route("newlist")]
     [ApiController]
-    public class NewListController : ControllerBase
+    public class AddListController : Controller
     {
 
         public async Task<IActionResult> AddItem()

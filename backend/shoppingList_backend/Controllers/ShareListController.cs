@@ -7,13 +7,13 @@ using shoppingList_backend.Database.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using static shoppingList_backend.Controllers.Authentication;
+using static shoppingList_backend.Controllers.AuthenticationController;
 
 namespace shoppingList_backend.Controllers
 {
     [Route("sharelist")]
     [ApiController]
-    public class ShareList : ControllerBase
+    public class ShareListController : Controller
     {
 
         [HttpPost("{groceryListId}")]

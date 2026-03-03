@@ -18,7 +18,7 @@ namespace shoppingList_backend.Controllers
 
     [Route("newitem")]
     [ApiController]
-    public class NewOrderController : ControllerBase
+    public class NewOrderController : Controller
     {
 
         [HttpPost("{GroceryListId}")]

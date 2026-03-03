@@ -14,7 +14,7 @@ namespace shoppingList_backend.Controllers
 
     [Route("GetRecomendations")]
     [ApiController]
-    public class GetRecomendations : Controller
+    public class GetRecomendationsController : Controller
     {
         [HttpGet("{GroceryListId}")]
         public IActionResult getRecomendations(int GroceryListId)

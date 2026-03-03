@@ -13,7 +13,7 @@ namespace shoppingList_backend.Controllers
 
     [Route("getGroceries")]
     [ApiController]
-    public class GetGroceries : Controller
+    public class GetGroceriesController : Controller
     {
         [HttpGet("{userId}/{GroceryListId}")]
         public IActionResult getGroceries(int GroceryListId, int userId)

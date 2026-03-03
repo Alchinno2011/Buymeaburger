@@ -11,7 +11,7 @@ namespace shoppingList_backend.Controllers
 {
     [Route("auth")]
     [ApiController]
-    public class Authentication : Controller
+    public class AuthenticationController : Controller
     {
         [HttpPost("signup")]
         [Consumes("application/json")]

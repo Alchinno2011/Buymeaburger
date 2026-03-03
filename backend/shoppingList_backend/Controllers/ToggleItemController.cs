@@ -5,7 +5,7 @@ namespace shoppingList_backend.Controllers
 {
     [Route("changeState")]
     [ApiController]
-    public class ToggleItem : Controller
+    public class ToggleItemController : Controller
     {
         [HttpPut("{GroceryListId}/{Id}")]
         public async Task<IActionResult> DeleteOrder(int Id, int GroceryListId)
