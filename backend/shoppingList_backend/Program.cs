@@ -27,6 +27,14 @@ app.UseAuthorization();
 
 
 
+builder.WebHost.UseSentry(o =>
+{
+    o.Dsn = "https://6e12bacaa20142429f7edad1b420c9c7@o4511156682620928.ingest.de.sentry.io/4511156698939472";
+    o.Debug = true;
+});
+
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
